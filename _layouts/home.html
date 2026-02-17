@@ -5,9 +5,9 @@ layout: default
 <div class="home">
   {{ content }}
 
-  <h2 class="post-list-heading">Summaries</h2>
+  <h2 class="post-list-heading">Latest Posts</h2>
   <ul class="post-list">
-    {% for post in site.categories.summary %}
+    {% for post in site.posts limit:5 %}
       <li>
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
         <h3>
@@ -18,4 +18,5 @@ layout: default
       </li>
     {% endfor %}
   </ul>
+  <p><a href="/rocsum/">View all Roc Zulip summaries</a></p>
 </div>

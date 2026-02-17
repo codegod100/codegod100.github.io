@@ -1,5 +1,5 @@
-title: Roc Zulip Summaries
-description: Daily activity summaries from the Roc language community on Zulip.
+title: codegod100.github.io
+description: Personal website of codegod100.
 baseurl: ""
 url: "https://codegod100.github.io"
 
@@ -8,7 +8,6 @@ github_username: codegod100
 theme: minima
 plugins:
 
-# Simplified footer and header settings
 minima:
   social_links:
     - { platform: github, user: codegod100 }
