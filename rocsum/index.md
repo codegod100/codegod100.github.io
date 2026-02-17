@@ -1,12 +1,13 @@
 ---
-layout: page
-title: Roc Zulip Daily Summaries
+layout: default
+title: Archive
 permalink: /rocsum/
 ---
 
-This page lists recent daily summaries from the Roc Zulip realm.
+### Roc Zulip Daily Summaries Archive
+
+Recent activity from the Roc language community on Zulip:
 
 {% for post in site.categories.summary %}
   - [{{ post.date | date: "%Y-%m-%d" }}]({{ post.url }})
 {% endfor %}
-

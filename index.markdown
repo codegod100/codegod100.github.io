@@ -1,11 +1,9 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
+title: Home
 ---
 
-## Roc Zulip Daily Summaries
+Welcome to the **Roc Zulip Daily Summaries** archive.
+Here you can find daily summaries of the activity on the Roc Zulip realm.
 
-The latest summaries from the Roc Zulip realm:
-[View all summaries](/rocsum/)
+[Browse all summaries by date](/rocsum/)
