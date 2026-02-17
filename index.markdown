@@ -4,3 +4,8 @@
 
 layout: home
 ---
+
+## Roc Zulip Daily Summaries
+
+The latest summaries from the Roc Zulip realm:
+[View all summaries](/rocsum/)
