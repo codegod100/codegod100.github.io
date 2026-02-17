@@ -7,7 +7,6 @@ github_username: codegod100
 
 theme: minima
 plugins:
-  - jekyll-feed
 
 # Simplified footer and header settings
 minima:
