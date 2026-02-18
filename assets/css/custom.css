@@ -1,33 +1,52 @@
-/* Dark Mode Override for Minima 2.5 */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #1d1f21;
-    color: #c5c8c6;
-  }
+/* Force Dark Mode Always */
+body {
+  background-color: #1d1f21 !important;
+  color: #c5c8c6 !important;
+}
 
-  a {
-    color: #81a2be;
-  }
+a {
+  color: #81a2be !important;
+}
 
-  h1, h2, h3, h4, h5, h6 {
-    color: #c5c8c6;
-  }
+a:hover {
+  color: #b5bd68 !important;
+}
 
-  .site-header, .site-footer {
-    border-color: #373b41;
-  }
+h1, h2, h3, h4, h5, h6 {
+  color: #c5c8c6 !important;
+}
 
-  .site-footer {
-    color: #969896;
-  }
+.site-header, .site-footer {
+  background-color: #1d1f21 !important;
+  border-color: #373b41 !important;
+}
 
-  code, pre {
-    background-color: #282a2e;
-    color: #c5c8c6;
-  }
+.site-title {
+  color: #f0f0f0 !important;
+}
 
-  blockquote {
-    border-left-color: #81a2be;
-    color: #969896;
-  }
+.site-footer {
+  color: #969896 !important;
+}
+
+.page-link {
+  color: #c5c8c6 !important;
+}
+
+.page-link:hover {
+  color: #81a2be !important;
+}
+
+code, pre {
+  background-color: #282a2e !important;
+  color: #c5c8c6 !important;
+}
+
+blockquote {
+  border-left-color: #81a2be !important;
+  color: #969896 !important;
+}
+
+.wrapper {
+  background-color: #1d1f21 !important;
 }
