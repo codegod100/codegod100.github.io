@@ -11,3 +11,4 @@ plugins:
 minima:
   social_links:
     - { platform: github, user: codegod100 }
+  skin: dark
