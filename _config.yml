@@ -6,9 +6,15 @@ url: "https://codegod100.github.io"
 github_username: codegod100
 
 theme: minima
+
+# Required plugins for Minima v3
 plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
 
 minima:
   social_links:
-    - { platform: github, user: codegod100 }
+    - title: GitHub
+      icon: github
+      url: "https://github.com/codegod100"
   skin: dark
