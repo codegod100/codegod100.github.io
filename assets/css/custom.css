@@ -1,0 +1,33 @@
+/* Dark Mode Override for Minima 2.5 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1d1f21;
+    color: #c5c8c6;
+  }
+
+  a {
+    color: #81a2be;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #c5c8c6;
+  }
+
+  .site-header, .site-footer {
+    border-color: #373b41;
+  }
+
+  .site-footer {
+    color: #969896;
+  }
+
+  code, pre {
+    background-color: #282a2e;
+    color: #c5c8c6;
+  }
+
+  blockquote {
+    border-left-color: #81a2be;
+    color: #969896;
+  }
+}
