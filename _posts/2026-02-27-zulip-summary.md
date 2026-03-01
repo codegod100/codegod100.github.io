@@ -14,7 +14,30 @@ categories: [zulip, summary]
 
 ## Top threads
 
+---
+
 ### Help Wanted : migrating the Roc Examples
+
+**Summary**
+
+Contributors discussed the migration of Roc examples, establishing a workflow using a specific branch and CI integration, while also resolving technical questions regarding the `echo` platform's limitations and the Roc playground's architecture.
+
+**Key points**
+
+- Norbert Hajagos volunteered to migrate examples manually (without AI), working alphabetically from the bottom up.
+- Anton created a `new-compiler` branch in the examples repo to serve as the base for migration and instructed contributors to update CI scripts for ported examples.
+- Anton identified that `roc build` fails for the header-less `echo` platform; Luke Boswell clarified this is expected behavior because the CLI acts as the host, meaning there are no pre-built binaries.
+- Richard Feldman decided that supporting `roc build` for header-less apps is not worth the effort, preferring a helpful error message instead.
+- Tobias Steckenborn and Luke Boswell discussed the Roc playground, noting that the new "headless" design could enable better samples and support use cases like Advent of Code (AOC) tasks.
+
+**Open questions**
+
+- None explicitly open; the question regarding `roc build` support was resolved.
+
+**Action items**
+
+- Migrate examples to the `new-compiler` branch and add them to the CI script (e.g., `all_tests.sh`).
+- Implement a helpful error message explaining that `roc build` only works on `app` modules, not header-less ones.
 
 - **Channel:** contributing
 - **Conversation:** Help Wanted : migrating the Roc Examples
@@ -32,29 +55,29 @@ categories: [zulip, summary]
 - <https://roc-lang.github.io/roc-playground/#content=YXBwIFttYWluIV0geyBwZjogcGxhdGZvcm0gImh0dHBzOi8vZ2l0aHViLmNvbS9sdWtld2lsbGlhbWJvc3dlbGwvcm9jLXBsYXRmb3JtLXRlbXBsYXRlLXppZy9yZWxlYXNlcy9kb3dubG9hZC8wLjYvMkJmR240TTl1V0pOaERWZU1naEdlWE5WREZpak1mUHNtbVZlbzZNNFFqS1gudGFyLnpzdCIgfQoKaW1wb3J0IHBmLlN0ZG91dAoKbWFpbiEgPSB8X2FyZ3N8IHsKICAgIFN0ZG91dC5saW5lISgiSGVsbG8sIFdvcmxkISIpCiAgICBPayh7fSkKfQ==>
 - <https://github.com/roc-lang/examples>
 
+---
+
+### AI Workflow
+
 **Summary**
 
-Contributors are coordinating the migration of Roc examples to a new compiler version, discussing technical limitations with the "echo" platform and the Roc playground, and setting up CI for the new examples branch.
+Users discussed their workflows for running multiple parallel Claude Code sessions, comparing directory cloning strategies and exploring the security implications of using `--dangerously-skip-permissions` within virtual machines.
 
 **Key points**
 
-- Norbert Hajagos volunteered to migrate examples alphabetically from the bottom up, reserving three specific examples, and will avoid using AI.
-- Anton created a `new-compiler` branch in the examples repo for contributors to use as a base and add CI tests.
-- A limitation was identified where `roc build` does not work for headerless apps (like those using the echo platform) because the CLI acts as the host; the team decided to implement an error message rather than support building.
-- Tobias Steckenborn suggested improving the Roc playground by using a headless platform to allow console output and better samples.
-- Luke Boswell clarified that the CLI refactoring for the playground was descopied from the initial PR to unblock migration but is now easier to wire up.
+- Anton uses multiple terminal windows across virtual desktops, utilizing separate folders (e.g., `roc1` through `roc9`) to manage parallel work.
+- Jared Ramirez uses `git worktrees` or multiple repository clones to manage concurrent sessions in different directories.
+- Niclas Ahden proposed running sessions in lightweight VMs managed via Nix to enable total isolation and the use of `--dangerously-skip-permissions`.
+- Niclas outlined security risks associated with `--dangerously-skip-permissions` even inside a VM, such as access to local networks, production secrets, or the potential for illegal activity and crypto mining.
+- Anton noted that using Claude Code on the web offers security improvements, and Niclas suggested this could facilitate a cloud-based dev environment to avoid local VM security issues.
 
 **Open questions**
 
-- None.
+- None specified.
 
 **Action items**
 
-- Norbert Hajagos to migrate examples starting from the bottom of the alphabet.
-- Contributors to base PRs on the `new-compiler` branch and add tests to `ci_scripts/all_tests.sh`.
-- Developers to implement an error message explaining that `roc build` only works on `app` modules.
-
-### AI Workflow
+- None specified.
 
 - **Channel:** off topic
 - **Conversation:** AI Workflow
@@ -72,26 +95,27 @@ Contributors are coordinating the migration of Roc examples to a new compiler ve
 - <https://roc.zulipchat.com/#narrow/channel/306878-off-topic/topic/AI.20Workflow/near/576270628>
 - <https://code.claude.com/docs/en/remote-control>
 
+---
+
+### Reassign or redeclare a constant?
+
 **Summary**
 
-The thread discusses workflows for running multiple parallel Claude Code sessions, comparing directory isolation strategies and exploring the security implications of using `--dangerously-skip-permissions` within virtual machines.
+Daren observed that redeclaring a variable in Roc generates a warning and allows the code to run, contradicting documentation stating constants cannot be redeclared. Contributors explained that Roc's philosophy is "inform don't block," allowing execution to proceed while using a non-zero exit code to fail CI checks.
 
 **Key points**
 
-- Users manage parallel sessions by creating multiple repository clones (e.g., `roc1` through `roc9`) or using git worktrees, often mapping them to virtual desktops.
-- A proposed "ideal" workflow involves using Nix to manage lightweight VMs for total session isolation, enabling the use of `--dangerously-skip-permissions`.
-- Significant security risks remain even inside a VM, such as access to local networks, production secrets, or the potential for illegal activity and crypto mining.
-- Claude Code on the web was highlighted as a potential security improvement or alternative to local VM management.
+- The documentation claims constants cannot be reassigned or shadowed, but the compiler currently permits the code to run with a warning.
+- Roc's design philosophy is to "inform don't block," meaning it avoids blocking execution for issues where the intended behavior is determinable.
+- The compiler is designed to exit with a non-zero status code when warnings are present, intentionally preventing such code from passing CI pipelines.
 
 **Open questions**
 
-- None explicitly stated.
+- Luke Boswell expressed uncertainty regarding the specific distinction between an Error and a Warning in the compiler's output.
 
 **Action items**
 
-- None explicitly stated.
-
-### Reassign or redeclare a constant?
+- None mentioned.
 
 - **Channel:** beginners
 - **Conversation:** Reassign or redeclare a constant?
@@ -106,25 +130,28 @@ The thread discusses workflows for running multiple parallel Claude Code session
 - <https://roc.zulipchat.com/#narrow/channel/231634-beginners/topic/Reassign.20or.20redeclare.20a.20constant.3F/near/576341802>
 - <https://i.postimg.cc/157gSz72/image.png>
 
+---
+
+### basic-dom
+
 **Summary**
 
-Daren reported a discrepancy where the tutorial claimed constants cannot be redeclared, but the compiler only issued a warning and allowed the code to run. Contributors clarified that the compiler follows an "inform don't block" philosophy, though the resulting non-zero exit code is intended to prevent such warnings from passing CI.
+Ghislain shares an article about WebAssembly and suggests it would be nice to have a Roc implementation of the WebAssembly Component Model. Luke Boswell mentions he has a rough "basic-dom" platform he paused working on due to large object files, but plans to revisit and share it eventually.
 
 **Key points**
 
-- The tutorial states that redeclaring a constant causes a compile-time error, but Daren observed it only resulted in a warning and the program executed successfully.
-- Luke Boswell explained that the design philosophy is "inform don't block," allowing execution to proceed despite the warning.
-- While the application runs, the `roc` or `roc build` commands exit with a non-zero status code to prevent warnings from slipping through CI pipelines.
+- Ghislain references a Mozilla article regarding WebAssembly becoming a first-class language on the web.
+- Luke has a rough basic-dom platform that he used for testing the interpreter and validating the platform host boundary.
+- Development on Luke's platform stalled because smaller object files (via dev or LLVM backends) are needed for it to be usable.
+- Luke intends to share the platform in a minimal working state in the future to allow for exploration of optimizations like skipping the JS glue.
 
 **Open questions**
 
-- Luke Boswell noted uncertainty regarding the specific distinction between an Error and a Warning in the compiler's output.
+- None specified.
 
 **Action items**
 
-- None mentioned.
-
-### basic-dom
+- Luke plans to revisit the basic-dom platform and share it once it is in a minimal working state.
 
 - **Channel:** ideas
 - **Conversation:** basic-dom
@@ -139,26 +166,27 @@ Daren reported a discrepancy where the tutorial claimed constants cannot be rede
 - <https://hacks.mozilla.org/wp-content/uploads/2026/02/Screenshot-2026-02-25-at-2.22.23-PM-1536x1018.png>
 - <https://hacks.mozilla.org/2026/02/making-webassembly-a-first-class-language-on-the-web/>
 
+---
+
+### command line parsing
+
 **Summary**
 
-Ghislain shared an article about WebAssembly becoming a first-class web language and suggested implementing the WebAssembly Component Model in Roc. Luke Boswell responded that he has a rough "basic-dom" platform for testing the interpreter and WASM boundaries, but paused development due to the need for smaller object files and better backends.
+Anton explained that the examples repository specifies exact versions and currently uses Roc alpha4 to ensure compatibility. He also noted a future plan to allow specifying the Roc version directly within `.roc` files to prevent version incompatibility issues.
 
 **Key points**
 
-- Ghislain proposes a Roc implementation of the WebAssembly Component Model.
-- Luke has a work-in-progress "basic-dom" platform used for testing the interpreter and validating the platform host boundary.
-- Development on basic-dom stalled because current object files are too large; it requires dev or LLVM backends to be usable.
-- Luke intends to share the platform in a minimal working state in the future for others to explore optimizations like skipping JS glue.
+- The examples repository links provided uses exact versions for its dependencies.
+- All examples in the repository currently use Roc alpha4.
+- There is a plan to support specifying the Roc version inside the `.roc` file itself.
 
 **Open questions**
 
-- None explicitly stated.
+- None identified in the thread.
 
 **Action items**
 
-- Luke plans to revisit and share the basic-dom platform once it reaches a minimal working state.
-
-### command line parsing
+- None identified in the thread.
 
 - **Channel:** beginners
 - **Conversation:** command line parsing
@@ -173,25 +201,28 @@ Ghislain shared an article about WebAssembly becoming a first-class web language
 - <https://github.com/roc-lang/examples/blob/main/examples/CommandLineArgs/main.roc>
 - <https://github.com/roc-lang/roc/releases/tag/alpha4-rolling>
 
+---
+
+### Unhelpful err msg for return in expression position
+
 **Summary**
 
-Anton explains that the examples repository uses exact versions and the `alpha4` release, and mentions a future plan to embed the Roc version directly in `.roc` files to prevent incompatibility issues.
+Norbert Hajagos reports an unhelpful error message when `return` is used in expression position (e.g., directly assigned to a variable or inside a `match` branch) rather than inside a block. The user notes that the error is confusing, but the fix is to wrap the `return` in curly braces to make it a statement.
 
 **Key points**
 
-- The examples repository specifies exact versions, such as in the `CommandLineArgs` example.
-- All examples in the repository currently use Roc `alpha4-rolling`.
-- There is a plan to allow specifying the Roc version within the `.roc` file itself.
+- The issue occurs when `return` is used where an expression is expected, such as `msg = return {}` or in a `match` branch.
+- The correct usage requires wrapping the `return` in a block (e.g., `msg = { return {} }`).
+- The current error message is unhelpful and caused the user to stare at the code confused, relying on prior discussions to solve it.
+- This was discovered while updating the `TryOperatorDesugaring` example.
 
 **Open questions**
 
-- None.
+- What specific error message is currently displayed to the user?
 
 **Action items**
 
-- None.
-
-### Unhelpful err msg for return in expression position
+- Improve the error message for `return` used in expression position to guide the user toward the correct syntax.
 
 - **Channel:** bugs
 - **Conversation:** Unhelpful err msg for return in expression position
@@ -205,26 +236,27 @@ Anton explains that the examples repository uses exact versions and the `alpha4`
 
 - <https://roc-lang.github.io/roc-playground/#content=bWFpbiEgPSB8X2FyZ3N8IHsKCU9rKHt9KQp9CgpyZXBybyA9IHx8IHsKCSMgYHJldHVybmAgYXQgZXhwcmVzc2lvbiBwb3NpdGlvbgoJbXNnID0gcmV0dXJuIHt9CgkjIHRoZSBmaXg6CgkjIG1zZyA9IHsKCSMgCXJldHVybiB7fQoJIyB9Cgltc2cKfQoKc2ltcGxpZmllZF9yZWFsX3VzZV9jYXNlID0gfGlucHV0fCB7Cgltc2cgPSBtYXRjaCBpbnB1dCB7CgkJImhpIiA9PiAiaGkiCgkJXyA9PiByZXR1cm4gInRoZXJlIgoJCSMgdGhlIGZpeDoKCQkjIF8gPT4gewoJCSMgCXJldHVybiAidGhlcmUiCgkJIyB9Cgl9Cgltc2cKfQoKZXhwZWN0IHJlcHJvKCkgPT0ge30KZXhwZWN0IHNpbXBsaWZpZWRfcmVhbF91c2VfY2FzZSgiaGkiKSA9PSAiaGki>
 
+---
+
+### eval snapshots snippet expect
+
 **Summary**
 
-Norbert Hajagos reports an unhelpful error message in issue #9218 when `return` is used in expression position (e.g., assigned to a variable or inside a match branch) rather than in statement position.
+Anton provided a brief status update regarding pull request #9215, noting that it is currently blocked by other PRs that must be merged first.
 
 **Key points**
 
-- The user encountered the confusing error while updating the `TryOperatorDesugaring` example.
-- The error occurs when `return` is used as an expression (e.g., `msg = return {}`) instead of a statement.
-- The fix requires wrapping the `return` in a block (e.g., `msg = { return {} }`).
-- The current error message is difficult to decipher without prior knowledge of the restriction.
+- PR #9215 is the subject of the update.
+- The PR cannot be merged immediately.
+- There is a dependency on other PRs being merged before #9215 can proceed.
 
 **Open questions**
 
-- How can the error message be improved to clearly explain that `return` is only allowed in statement position?
+- None identified from the provided text.
 
 **Action items**
 
-- Improve the error message for `return` used in expression position.
-
-### eval snapshots snippet expect
+- None identified from the provided text.
 
 - **Channel:** compiler development
 - **Conversation:** eval snapshots snippet expect
@@ -234,24 +266,28 @@ Norbert Hajagos reports an unhelpful error message in issue #9218 when `return` 
 - **Participants:** Anton
 - **Link:** <https://roc.zulipchat.com/#narrow/channel/395097-compiler-development/topic/eval.20snapshots.20snippet.20expect/near/576302428>
 
+---
+
+### Roc Examples - migrate to "Headerless" Applications
+
 **Summary**
 
-Anton provided a brief status update regarding pull request #9215, noting its dependency on other merges.
+Anton expresses concern regarding a proposal to migrate the official Roc examples to use a "Headerless" application format instead of `basic-cli`.
 
 **Key points**
 
-- PR #9215 is currently open.
-- The PR cannot be merged immediately because other PRs need to be merged first.
+- The thread discusses a potential migration of the Roc language examples found on the website.
+- The proposal suggests replacing `basic-cli` with a "Headerless" application model for these examples.
+- Anton worries that using a "tutorial" platform (Headerless) for examples will prevent users from discovering `basic-cli`.
+- The concern is that users might not transition to real-world tools, hindering their ability to build production applications.
 
 **Open questions**
 
-- None identified from the transcript.
+- None stated in the provided transcript.
 
 **Action items**
 
-- None identified from the transcript.
-
-### Roc Examples - migrate to "Headerless" Applications
+- None stated in the provided transcript.
 
 - **Channel:** ideas
 - **Conversation:** Roc Examples - migrate to "Headerless" Applications
@@ -264,21 +300,3 @@ Anton provided a brief status update regarding pull request #9215, noting its de
 **Key links**
 
 - <https://www.roc-lang.org/examples/>
-
-**Summary**
-
-Anton expresses concern regarding a proposal to migrate Roc's official examples to a "Headerless" application format, worrying that this change might prevent users from discovering the standard `basic-cli` platform required for real-world applications.
-
-**Key points**
-
-- A proposal was made to migrate the examples on roc-lang.org from `basic-cli` to a "Headerless" application format.
-- Anton worries that users will not transition away from the "tutorial" platform if the examples do not use `basic-cli`.
-- The concern is that this could result in users failing to learn how to build real-world Roc programs.
-
-**Open questions**
-
-- None identified in the provided transcript.
-
-**Action items**
-
-- None identified in the provided transcript.
